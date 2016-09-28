@@ -1,5 +1,5 @@
-require "neoclock/version"
+require 'neoclock/version'
+require 'neoclock/wheel'
+require 'neoclock/colour'
 
-module Neoclock
-  # Your code goes here...
-end
+# http://www.perbang.dk/rgbgradient/
