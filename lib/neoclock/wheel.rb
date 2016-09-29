@@ -34,5 +34,13 @@ module Neoclock
         end
       end
     end
+
+    def self.hours hour
+      (hour % 12) * 30
+    end
+
+    def self.minutes minute
+      minute * 6
+    end
   end
 end
