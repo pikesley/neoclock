@@ -112,8 +112,78 @@ module Neoclock
               it "lights #{expectation} for #{hour} hours" do
                 wheel = described_class.new lights: count
                 wheel.hours hour
-                expect(wheel.leds).
-                  to eq expectation
+                expect(wheel.leds).to eq expectation
+              end
+            end
+          end
+        end
+      end
+
+      context 'minutes' do
+        test_cases = {
+          24 => {
+            30 => [
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(255, 0, 0),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255)
+            ],
+            17 => [
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(255, 0, 0),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255),
+              PixelPi::Color(0, 0, 255)
+            ]
+          }
+        }
+
+        test_cases.each_pair do |count, expectations|
+          context "#{count} lights" do
+            expectations.each_pair do |minute, expectation|
+              it "lights #{expectation} for #{minute} minutes" do
+                wheel = described_class.new lights: count
+                wheel.minutes minute
+                expect(wheel.leds).to eq expectation
               end
             end
           end

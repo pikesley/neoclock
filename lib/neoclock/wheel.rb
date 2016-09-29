@@ -15,6 +15,10 @@ module Neoclock
       @leds = Wheel.colourise ((hour % 12) * 30), @count, @on, @off
     end
 
+    def minutes minute
+      @leds = Wheel.colourise (minute * 6), @count, @on, @off
+    end
+
     def self.intensity angle, count
       list = []
       lit = ((count / 360.0) * angle).to_i
@@ -36,13 +40,5 @@ module Neoclock
         end
       end
     end
-
-  #  def hours hour
-  #    (hour % 12) * 30
-  #  end
-
-  #  def minutes minute
-  #    minute * 6
-  #  end
   end
 end
