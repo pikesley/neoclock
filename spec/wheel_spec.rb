@@ -1,37 +1,33 @@
 module Neoclock
   describe Wheel do
-    context 'set colours' do
-      context 'with 2 lamps' do
-        wheel = described_class.new range: (0..1)
+    context 'set intensities' do
+      test_cases = {
+        (0..3) => {
+          0   => [1, 0, 0, 0],
+          90  => [0, 1, 0, 0],
+          180 => [0, 0, 1, 0],
+          270 => [0, 0, 0, 1]
+        },
+        (0..11) => {
+          0   => [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          30  => [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          60  => [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          90  => [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+          180 => [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+          270 => [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+          330 => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+        }
+      }
 
-        specify '0 degrees' do
-          wheel.rotation 0
-          expect(wheel.leds[0]).to eq [255, 0, 0]
-          expect(wheel.leds[1]).to eq [0, 0, 255]
-        end
-
-        specify '180 degrees' do
-          wheel.rotation 180
-          expect(wheel.leds[0]).to eq [0, 0, 255]
-          expect(wheel.leds[1]).to eq [255, 0, 0]
-        end
-      end
-
-      context 'with 4 lamps' do
-        wheel = described_class.new range: (0..3)
-
-        specify '0 degrees' do
-          wheel.rotation 0
-          expect(wheel.leds[0]).to eq [255, 0, 0]
-        #  expect(wheel.leds[1]).to eq [127, 0, 127]
-          expect(wheel.leds[2]).to eq [0, 0, 255]
-        #  expect(wheel.leds[3]).to eq [127, 0, 127]
-        end
-
-        specify '180 degrees' do
-          wheel.rotation 180
-          expect(wheel.leds[0]).to eq [0, 0, 255]
-          expect(wheel.leds[2]).to eq [255, 0, 0]
+      test_cases.each_pair do |range, expectations|
+        context "range #{range}" do
+          wheel = described_class.new range: range
+          expectations.each_pair do |angle, expectation|
+            it "gets #{expectation} for #{angle}" do
+              wheel.rotation angle
+              expect(wheel.leds).to eq expectation
+            end
+          end
         end
       end
     end
