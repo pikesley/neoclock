@@ -1,18 +1,16 @@
 module Neoclock
-  class Wheel
+  class Clock
     attr_reader :leds
 
     ON =  [255, 0, 0]
     OFF = [0, 0, 255]
 
     def initialize options
-      @count = options.fetch :lights, 12
-      @on = options.fetch :on, ON
-      @off = options.fetch :off, OFF
-    end
-
-    def hours hour
-      @leds = Wheel.colourise ((hour % 12) * 30), @count, @on, @off
+    #  @proportion = 1 / 12.0
+    #  @count = options.fetch :count, 12
+    #  @on = options.fetch :on, [255, 0, 0]
+    #  @off = options.fetch :off, [0, 0, 255]
+    #  @leds = []
     end
 
     def self.intensity angle, count
@@ -37,12 +35,12 @@ module Neoclock
       end
     end
 
-  #  def hours hour
-  #    (hour % 12) * 30
-  #  end
+    def self.hours hour
+      (hour % 12) * 30
+    end
 
-  #  def minutes minute
-  #    minute * 6
-  #  end
+    def self.minutes minute
+      minute * 6
+    end
   end
 end

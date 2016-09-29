@@ -1,5 +1,5 @@
 module Neoclock
-  describe Colour do
+  describe Clock do
     
   end
 end
