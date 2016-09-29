@@ -10,8 +10,8 @@ module Neoclock
     LED_INVERT     = false   # True to invert the signal (when using NPN transistor level shift)
 
     def initialize minute_size, hour_size, on, off
-      @bighand = Wheel.new count: minute_size, on: on, off: off
-      @littlehand = Wheel.new count: hour_size, on: on, off: off
+      @bighand = Wheel.new lights: minute_size, on: on, off: off
+      @littlehand = Wheel.new lights: hour_size, on: on, off: off
 
       @lights = PixelPi::Leds.new \
         minute_size + hour_size,
@@ -29,7 +29,7 @@ module Neoclock
       @littlehand.hours dt.hour
 
       (@littlehand.leds + @bighand.leds).each_with_index do |l, index|
-        @lights[index] = l
+        @lights[index] = PixelPi::Color(*l)
       end
 
       @lights.show

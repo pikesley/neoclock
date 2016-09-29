@@ -34,9 +34,9 @@ module Neoclock
       lamps = intensity angle, count
       lamps.map do |l|
         if l == 1
-          PixelPi::Color(*on)
+          on
         else
-          PixelPi::Color(*off)
+          off
         end
       end
     end
