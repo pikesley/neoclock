@@ -2,13 +2,13 @@ module Neoclock
   describe Wheel do
     context 'set intensities' do
       test_cases = {
-        (0..3) => {
+        4 => {
           0   => [1, 0, 0, 0],
           90  => [0, 1, 0, 0],
           180 => [0, 0, 1, 0],
           270 => [0, 0, 0, 1]
         },
-        (0..11) => {
+        12 => {
           0   => [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           30  => [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           60  => [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -19,9 +19,9 @@ module Neoclock
         }
       }
 
-      test_cases.each_pair do |range, expectations|
-        context "range #{range}" do
-          wheel = described_class.new range: range
+      test_cases.each_pair do |count, expectations|
+        context "#{count} lights" do
+          wheel = described_class.new count: count
           expectations.each_pair do |angle, expectation|
             it "gets #{expectation} for #{angle}" do
               wheel.rotation angle
@@ -31,5 +31,6 @@ module Neoclock
         end
       end
     end
+
   end
 end

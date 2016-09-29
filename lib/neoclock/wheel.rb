@@ -3,9 +3,8 @@ module Neoclock
     attr_reader :leds
 
     def initialize options
-      @range = options.fetch :range, (0..11)
       @proportion = 1 / 12.0
-      @count = @range.count
+      @count = options.fetch :count, 12
       @leds = []
     end
 
