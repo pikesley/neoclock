@@ -21,16 +21,54 @@ module Neoclock
 
       test_cases.each_pair do |count, expectations|
         context "#{count} lights" do
-          wheel = described_class.new count: count
           expectations.each_pair do |angle, expectation|
             it "gets #{expectation} for #{angle}" do
-              wheel.rotation angle
-              expect(wheel.leds).to eq expectation
+              expect(described_class.intensity angle, count).
+                to eq expectation
             end
           end
         end
       end
     end
 
+    context 'set colours' do
+      test_cases = {
+        4 => {
+          0 => [
+            PixelPi::Color(255, 0, 0),
+            PixelPi::Color(0, 0, 255),
+            PixelPi::Color(0, 0, 255),
+            PixelPi::Color(0, 0, 255)
+          ]
+        },
+        12 => {
+          60 => [
+            PixelPi::Color(0, 0, 255),
+            PixelPi::Color(0, 0, 255),
+            PixelPi::Color(255, 0, 0),
+            PixelPi::Color(0, 0, 255),
+            PixelPi::Color(0, 0, 255),
+            PixelPi::Color(0, 0, 255),
+            PixelPi::Color(0, 0, 255),
+            PixelPi::Color(0, 0, 255),
+            PixelPi::Color(0, 0, 255),
+            PixelPi::Color(0, 0, 255),
+            PixelPi::Color(0, 0, 255),
+            PixelPi::Color(0, 0, 255)
+          ]
+        }
+      }
+
+      test_cases.each_pair do |count, expectations|
+        context "#{count} lights" do
+          expectations.each_pair do |angle, expectation|
+            it "gets #{expectation} for #{angle}" do
+              expect(described_class.colourise angle, count).
+                to eq expectation
+            end
+          end
+        end
+      end
+    end
   end
 end

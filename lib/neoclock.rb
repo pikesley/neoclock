@@ -1,3 +1,5 @@
+require 'pixel_pi'
+
 require 'neoclock/version'
 require 'neoclock/wheel'
 require 'neoclock/colour'
