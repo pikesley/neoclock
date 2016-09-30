@@ -1,8 +1,10 @@
 require 'pixel_pi'
+require 'singleton'
 
 require 'neoclock/version'
 require 'neoclock/wheel'
 require 'neoclock/clock'
+require 'neoclock/config'
 
 # http://www.perbang.dk/rgbgradient/
 
