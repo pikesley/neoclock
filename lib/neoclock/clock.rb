@@ -26,7 +26,7 @@ module Neoclock
       @bighand.minutes dt.minute
       @littlehand.hours dt.hour
 
-      (@littlehand.leds + @bighand.leds).each_with_index do |l, index|
+      (@bighand.leds + @littlehand.leds).each_with_index do |l, index|
         @lights[index] = PixelPi::Color(*l)
       end
 

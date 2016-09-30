@@ -1,5 +1,7 @@
 require 'pixel_pi'
 require 'singleton'
+require 'ostruct'
+require 'yaml'
 
 require 'neoclock/version'
 require 'neoclock/wheel'
