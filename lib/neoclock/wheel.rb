@@ -21,7 +21,7 @@ module Neoclock
 
     def self.intensity angle, count
       list = []
-      lit = ((count / 360.0) * angle).to_i
+      lit = ((count / 360.0) * angle).ceil
       count.times do |i|
         list[i] = 0
         list[i] = 1 if i == lit
