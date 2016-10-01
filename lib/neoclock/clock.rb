@@ -1,19 +1,14 @@
 module Neoclock
   class Clock
-    attr_reader :leds
+    attr_reader :lights
 
     def initialize options = {}
       @config = Config.instance.config
 
-      @minute_size = options.fetch(:minute_size, @config.minutes['pins'])
-      @hour_size = options.fetch(:hour_size, @config.hours['pins'])
-      @figure = options.fetch(:figure, @config.colours['figure'])
-      @ground = options.fetch(:ground, @config.colours['ground'])
-      @bighand = Wheel.new type: 'minutes'
-      @littlehand = Wheel.new type: 'hours'
+      @total_size = @config.minutes['pins'] + @config.hours['pins']
 
-      @lights = PixelPi::Leds.new \
-        @minute_size + @hour_size,
+      @rings = PixelPi::Leds.new \
+        @total_size,
         @config.led['pin'],
         frequency: @config.led['freq'],
         dma: @config.led['dma'],
@@ -23,14 +18,26 @@ module Neoclock
 
     def time
       dt = DateTime.now
-      @bighand.minutes dt.minute
-      @littlehand.hours dt.hour
+      @lights = []
 
-      (@bighand.leds + @littlehand.leds).each_with_index do |l, index|
-        @lights[index] = PixelPi::Color(*l)
+      lit = [
+        ((@config.minutes['pins'] / 60.0) * dt.minute).to_i,
+        (dt.hour % 12) + @config.minutes['pins']
+      ]
+
+      @total_size.times do |i|
+        if lit.include? i
+          @lights.push @config.colours['figure']
+        else
+          @lights.push @config.colours['ground']
+        end
       end
 
-      @lights.show
+      @lights.each_with_index do |colour, i|
+        @rings[i] = PixelPi::Color(*colour)
+      end
+
+      @rings.show
     end
   end
 end
