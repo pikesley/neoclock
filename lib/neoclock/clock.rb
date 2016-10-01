@@ -34,7 +34,7 @@ module Neoclock
       end
 
       @lights.each_with_index do |colour, i|
-        @rings[i] = PixelPi::Color(*colour)
+        @rings[i] = PixelPi::Color *colour
       end
 
       @rings.show
