@@ -55,13 +55,13 @@ module Neoclock
       if before < 0
         before = Config.instance.config.minutes['pins'] - 1
       end
-      h[before] = Neoclock.blender figure, ground, 30
+      h[before] = figure
 
       after = pin + 1
       if after >= Config.instance.config.minutes['pins']
         after = pin - Config.instance.config.minutes['pins'] + 1
       end
-      h[after] = Neoclock.blender figure, ground, 30
+      h[after] = figure
 
       h
     end
