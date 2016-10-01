@@ -4,3 +4,5 @@ require 'neoclock'
 require 'timecop'
 require 'coveralls'
 Coveralls.wear!
+
+ENV['TZ'] = 'UTC'
