@@ -26,18 +26,17 @@ module Neoclock
       minutes = ((@config.minutes['pins'] / 60.0) * dt.minute).to_i
       hours = (dt.hour % 12) + @config.minutes['pins']
 
-      step = 0
-      while step < @total_size do
-        case step
-        when minutes
-          @lights[step] = @figure
-        when hours
-          @lights[step] = @figure
-        else
-          @lights[step] = @ground
-        end
+      minute_block = {
 
-        step += 1
+      }
+
+      @total_size.times do
+        @lights.push @ground
+      end
+
+      @lights[hours] = @figure
+      Clock.minute_block(minutes, @figure, @ground).each_pair do |index, colour|
+        @lights[index] = colour
       end
 
       @lights.each_with_index do |colour, i|
@@ -45,6 +44,26 @@ module Neoclock
       end
 
       @rings.show
+    end
+
+    def self.minute_block pin, figure, ground
+      h = {}
+
+      h[pin] = figure
+
+      before = pin - 1
+      if before < 0
+        before = Config.instance.config.minutes['pins'] - 1
+      end
+      h[before] = Neoclock.blender figure, ground, 30
+
+      after = pin + 1
+      if after >= Config.instance.config.minutes['pins']
+        after = pin - Config.instance.config.minutes['pins'] + 1
+      end
+      h[after] = Neoclock.blender figure, ground, 30
+
+      h
     end
   end
 end
