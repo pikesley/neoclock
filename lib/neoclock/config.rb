@@ -8,10 +8,15 @@ module Neoclock
 
     def reset! # testing a singleton is hard
       @config = OpenStruct.new fetch_yaml 'clock'
+      @colours = OpenStruct.new fetch_yaml 'colours'
     end
 
     def config
       @config
+    end
+
+    def colours
+      @colours
     end
 
     private

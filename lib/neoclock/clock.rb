@@ -5,8 +5,8 @@ module Neoclock
     def initialize options = {}
       @config = Config.instance.config
 
-      @figure = @config.colours['figure']
-      @ground = @config.colours['ground']
+      @figure = Config.instance.colours[@config.colours['figure']]
+      @ground = Config.instance.colours[@config.colours['ground']]
 
       @total_size = @config.minutes['pins'] + @config.hours['pins']
 
