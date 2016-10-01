@@ -110,7 +110,7 @@ module Neoclock
           context "#{count} lights" do
             expectations.each_pair do |hour, expectation|
               it "lights #{expectation} for #{hour} hours" do
-                wheel = described_class.new lights: count
+                wheel = described_class.new type: 'hours'
                 wheel.hours hour
                 expect(wheel.leds).to eq expectation
               end
@@ -155,8 +155,8 @@ module Neoclock
               [0, 0, 255],
               [0, 0, 255],
               [0, 0, 255],
-              [255, 0, 0],
               [0, 0, 255],
+              [255, 0, 0],
               [0, 0, 255],
               [0, 0, 255],
               [0, 0, 255],
@@ -181,7 +181,7 @@ module Neoclock
           context "#{count} lights" do
             expectations.each_pair do |minute, expectation|
               it "lights #{expectation} for #{minute} minutes" do
-                wheel = described_class.new lights: count
+                wheel = described_class.new type: 'minutes'
                 wheel.minutes minute
                 expect(wheel.leds).to eq expectation
               end

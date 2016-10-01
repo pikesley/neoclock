@@ -9,8 +9,8 @@ module Neoclock
       @hour_size = options.fetch(:hour_size, @config.hours['pins'])
       @figure = options.fetch(:figure, @config.colours['figure'])
       @ground = options.fetch(:ground, @config.colours['ground'])
-      @bighand = Wheel.new lights: @minute_size, on: @figure, ground: @ground
-      @littlehand = Wheel.new lights: @hour_size, on: @figure, ground: @ground
+      @bighand = Wheel.new type: 'minutes'
+      @littlehand = Wheel.new type: 'hours'
 
       @lights = PixelPi::Leds.new \
         @minute_size + @hour_size,
