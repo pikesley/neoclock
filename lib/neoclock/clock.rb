@@ -33,8 +33,6 @@ module Neoclock
           @lights[step] = @figure
         when hours
           @lights[step] = @figure
-          @lights[step + 1] = Neoclock.blender @ground, @figure, dt.minute
-          step += 1
         else
           @lights[step] = @ground
         end
