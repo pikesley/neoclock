@@ -18,7 +18,18 @@ namespace :clock do
         clock.time
         t += 60
       end
-      sleep 0.001
+      sleep 0.05
+    end
+    clock.time
+  end
+
+  task :shuffle do
+    clock = Neoclock::Clock.new
+    Random.rand(256).times do
+      Timecop.freeze DateTime.strptime(Random.rand(86400).to_s, '%s') do
+        clock.time
+      end
+      sleep 0.05
     end
     clock.time
   end
