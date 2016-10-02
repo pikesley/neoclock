@@ -4,11 +4,8 @@ require 'ostruct'
 require 'yaml'
 
 require 'neoclock/version'
-require 'neoclock/wheel'
 require 'neoclock/clock'
 require 'neoclock/config'
-
-# http://www.perbang.dk/rgbgradient/
 
 module Neoclock
   def self.blender start, stop, sixtieth
@@ -26,9 +23,5 @@ module Neoclock
       sixtieth = 60 - sixtieth
     end
     ((higher - lower) / 60.0 * sixtieth).to_i + lower
-  end
-
-  def self.alg length, angle
-    ((length / 360.0) * angle)
   end
 end

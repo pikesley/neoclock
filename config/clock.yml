@@ -14,9 +14,3 @@ led:
   dma:        5
   brightness: 16 # DOES FUCK ALL
   invert:     false
-
-magenta:
-  - 255
-  - 0
-  - 255
-  # etc
