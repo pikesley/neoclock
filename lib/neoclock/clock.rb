@@ -23,12 +23,8 @@ module Neoclock
       dt = DateTime.now
       @lights = []
 
-      minutes = ((@config.minutes['pins'] / 60.0) * dt.minute).to_i
+      minutes = ((@config.minutes['pins'] / 60.0) * dt.minute).round
       hours = (dt.hour % 12) + @config.minutes['pins']
-
-      minute_block = {
-
-      }
 
       @total_size.times do
         @lights.push @ground
