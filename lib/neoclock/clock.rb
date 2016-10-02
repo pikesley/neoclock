@@ -31,8 +31,8 @@ module Neoclock
       end
 
       @lights[hours] = @figure
-      Clock.minute_block(minutes, @figure, @ground).each_pair do |index, colour|
-        @lights[index] = colour
+      Bracketer.new(minutes, @config.minutes['pins']).each do |index|
+        @lights[index] = @figure
       end
 
       @lights.each_with_index do |colour, i|
@@ -40,26 +40,6 @@ module Neoclock
       end
 
       @rings.show
-    end
-
-    def self.minute_block pin, figure, ground
-      h = {}
-
-      h[pin] = figure
-
-      before = pin - 1
-      if before < 0
-        before = Config.instance.config.minutes['pins'] - 1
-      end
-      h[before] = figure
-
-      after = pin + 1
-      if after >= Config.instance.config.minutes['pins']
-        after = pin - Config.instance.config.minutes['pins'] + 1
-      end
-      h[after] = figure
-
-      h
     end
   end
 end

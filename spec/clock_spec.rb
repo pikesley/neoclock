@@ -52,44 +52,6 @@ module Neoclock
           end
         end
       end
-
-      context 'minute block' do
-        it 'handles the easy case' do
-          expect(
-            Clock.minute_block 12, [255, 0, 0], [0, 0, 255]
-          ).to eq (
-            {
-              11 => [255, 0, 0],
-              12 => [255, 0, 0],
-              13 => [255, 0, 0]
-            }
-          )
-        end
-
-        it 'handles the on-the-hour case' do
-          expect(
-            Clock.minute_block 0, [255, 0, 0], [0, 0, 255]
-          ).to eq (
-            {
-              23 => [255, 0, 0],
-              0  => [255, 0, 0],
-              1  => [255, 0, 0]
-            }
-          )
-        end
-
-        it 'handles the just-before-the-hour case' do
-          expect(
-            Clock.minute_block 23, [255, 0, 0], [0, 0, 255]
-          ).to eq (
-            {
-              22 => [255, 0, 0],
-              23 => [255, 0, 0],
-              0  => [255, 0, 0]
-            }
-          )
-        end
-      end
     end
   end
 end
