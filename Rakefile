@@ -33,6 +33,19 @@ namespace :clock do
     end
     clock.time
   end
+
+  task :swing do
+    clock = Neoclock::Clock.new
+    t = 82800 + 1800
+    while t <= 864000
+      Timecop.freeze DateTime.strptime(t.to_s, '%s') do
+        clock.time
+        t += 3930
+      end
+      sleep 0.05
+    end    
+    clock.time
+  end
 end
 
 RSpec::Core::RakeTask.new(:spec)
