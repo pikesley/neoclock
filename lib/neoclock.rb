@@ -7,6 +7,7 @@ require 'neoclock/version'
 require 'neoclock/clock'
 require 'neoclock/config'
 require 'neoclock/neopixels'
+require 'neoclock/trickster'
 
 module Neoclock
   def self.blender start, stop, sixtieth

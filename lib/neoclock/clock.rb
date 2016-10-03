@@ -1,7 +1,6 @@
 module Neoclock
   class Clock
-    def self.time
-      dt = DateTime.now
+    def self.time dt = DateTime.now
       Neopixels.instance.illuminate (Clock.wheel 'minutes', dt) + (Clock.wheel 'hours', dt)
     end
 
