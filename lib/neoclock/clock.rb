@@ -1,45 +1,49 @@
 module Neoclock
   class Clock
-    attr_reader :lights
-
-    def initialize options = {}
-      @config = Config.instance.config
-
-      @figure = Config.instance.colours[@config.colours['figure']]
-      @ground = Config.instance.colours[@config.colours['ground']]
-
-      @total_size = @config.minutes['pins'] + @config.hours['pins']
-
-      @rings = PixelPi::Leds.new \
-        @total_size,
-        @config.led['pin'],
-        frequency: @config.led['freq'],
-        dma: @config.led['dma'],
-        brightness: @config.led['brightness'],
-        invert: @config.led['invert']
+    def self.time
+      File.open '/tmp/foo', 'a' do |f|
+        f.write "WTF\n"
+      end
+      dt = DateTime.now
+      Neopixels.instance.illuminate (Clock.wheel 'minutes', dt) + (Clock.wheel 'hours', dt)
     end
 
-    def time
-      dt = DateTime.now
-      @lights = []
-
-      minutes = ((@config.minutes['pins'] / 60.0) * dt.minute).round
-      hours = (dt.hour % 12) + @config.minutes['pins']
-
-      @total_size.times do
-        @lights.push @ground
+    def self.wheel type, time
+      config = Config.instance.config
+      l = []
+      figure = config.colours[config.neopixels[type]['colours']['figure']]
+      ground = config.colours[config.neopixels[type]['colours']['ground']]
+      config.neopixels[type]['pins'].times do
+        l.push ground
       end
+      Clock.send(:"#{type}_pins", time).map { |i| l[i] = figure }
 
-      @lights[hours] = @figure
-      Bracketer.new(minutes, @config.minutes['pins']).each do |index|
-        @lights[index] = @figure
+      l
+    end
+
+    def self.hours_pins time
+      [time.hour % 12]
+    end
+
+    def self.minutes_pins time
+      total_pins = Config.instance.config.neopixels['minutes']['pins']
+      Clock.bracketise ((total_pins / 60.0) * time.minute).round, total_pins
+    end
+
+    def self.bracketise pin, length
+      a = []
+      first = pin - 1
+      if first < 0
+        first = length - 1
       end
+      a.push first
 
-      @lights.each_with_index do |colour, i|
-        @rings[i] = PixelPi::Color *colour
-      end
+      a.push pin
 
-      @rings.show
+      last = (pin + 1) % length
+      a.push last
+
+      a.sort!
     end
   end
 end
