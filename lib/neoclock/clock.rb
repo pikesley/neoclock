@@ -24,7 +24,7 @@ module Neoclock
 
     def self.minutes_pins time
       total_pins = Config.instance.config.neopixels['minutes']['pins']
-      Clock.bracketise ((total_pins / 60.0) * time.minute).round, total_pins
+      Clock.bracketise ((total_pins / 60.0) * time.minute).to_i, total_pins
     end
 
     def self.bracketise pin, length
@@ -39,7 +39,6 @@ module Neoclock
 
       last = (pin + 1) % length
       a.push last
-
       a.sort!
     end
   end

@@ -12,6 +12,10 @@ module Neoclock
       it 'handles the high-end case' do
         expect(described_class.bracketise 4, 5).to eq [0, 3, 4]
       end
+
+      it 'handles the last-but-one case' do
+        expect(described_class.bracketise 23, 24).to eq [0, 22, 23]
+      end
     end
   end
 end
