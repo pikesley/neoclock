@@ -1,9 +1,6 @@
 module Neoclock
   class Clock
     def self.time
-      File.open '/tmp/foo', 'a' do |f|
-        f.write "WTF\n"
-      end
       dt = DateTime.now
       Neopixels.instance.illuminate (Clock.wheel 'minutes', dt) + (Clock.wheel 'hours', dt)
     end
