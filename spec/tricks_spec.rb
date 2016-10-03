@@ -20,13 +20,11 @@ module Neoclock
         described_class.time DateTime.parse '06:30'
       end
     end
-  end
 
-  describe Trickster do
     context 'tricks' do
       it 'shuffles' do
         expect(Neopixels.instance).to receive(:illuminate).
-          exactly(64).times
+          exactly(65).times
         described_class.shuffle
       end
     end
