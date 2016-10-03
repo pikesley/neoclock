@@ -6,7 +6,7 @@ require 'yaml'
 require 'neoclock/version'
 require 'neoclock/clock'
 require 'neoclock/config'
-require 'neoclock/bracketer'
+require 'neoclock/neopixels'
 
 module Neoclock
   def self.blender start, stop, sixtieth
